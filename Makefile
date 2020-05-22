@@ -2,7 +2,8 @@
 # (c) 1998--2020 Martin Mares <mj@ucw.cz>
 
 OPT=-O2
-CFLAGS=$(OPT) -Wall -W -Wno-parentheses -Wstrict-prototypes -Wmissing-prototypes
+CFLAGS=$(OPT) -Wall -W -Wno-parentheses -Wstrict-prototypes -Wmissing-prototypes -F/usr/local/Frameworks
+LDFLAGS=-lz -framework IOKit  -framework CoreFoundation -framework DirectHW -F/usr/local/Frameworks
 
 VERSION=3.6.4
 DATE=2020-01-25
@@ -19,7 +20,7 @@ ZLIB=
 DNS=
 
 # Build libpci as a shared library (yes/no; or local for testing; requires GCC)
-SHARED=no
+SHARED=yes
 
 # Use libkmod to resolve kernel modules on Linux (yes/no, default: detect)
 LIBKMOD=
@@ -36,7 +37,7 @@ PREFIX=/usr/local
 SBINDIR=$(PREFIX)/sbin
 SHAREDIR=$(PREFIX)/share
 IDSDIR=$(SHAREDIR)
-MANDIR:=$(shell if [ -d $(PREFIX)/share/man ] ; then echo $(PREFIX)/share/man ; else echo $(PREFIX)/man ; fi)
+MANDIR:=$(PREFIX)/share/man
 INCDIR=$(PREFIX)/include
 LIBDIR=$(PREFIX)/lib
 PKGCFDIR=$(LIBDIR)/pkgconfig
