@@ -1,3 +1,9 @@
+2020-05-22  Evgeny Istratov <warexify@outlook.com>
+
+	* Released as 3.6.5.
+
+	* Fixed building with DirectHW on macOS 10.13
+
 2020-01-25  Martin Mares <mj@ucw.cz>
 
 	* Released as 3.6.4.
