@@ -29,8 +29,10 @@ typedef u16 word;
 #include <asm/byteorder.h>
 #define cpu_to_le16 __cpu_to_le16
 #define cpu_to_le32 __cpu_to_le32
+#define cpu_to_le64 __cpu_to_le64
 #define le16_to_cpu __le16_to_cpu
 #define le32_to_cpu __le32_to_cpu
+#define le64_to_cpu __le64_to_cpu
 
 #else
 
@@ -87,8 +89,10 @@ typedef u16 word;
 #if BYTE_ORDER == BIG_ENDIAN
 #define cpu_to_le16 swab16
 #define cpu_to_le32 swab32
+#define cpu_to_le64 swab64
 #define le16_to_cpu swab16
 #define le32_to_cpu swab32
+#define le64_to_cpu swab64
 
 static inline word swab16(word w)
 {
@@ -102,11 +106,24 @@ static inline u32 swab32(u32 w)
          ((w & 0x0000ff00) << 8)  |
          ((w & 0x000000ff) << 24);
 }
+static inline u64 swab64(u64 x)
+{
+    return  (u64)((x & (u64)0x00000000000000ffULL) << 56) |
+        (u64)((x & (u64)0x000000000000ff00ULL) << 40) |
+        (u64)((x & (u64)0x0000000000ff0000ULL) << 24) |
+        (u64)((x & (u64)0x00000000ff000000ULL) <<  8) |
+        (u64)((x & (u64)0x000000ff00000000ULL) >>  8) |
+        (u64)((x & (u64)0x0000ff0000000000ULL) >> 24) |
+        (u64)((x & (u64)0x00ff000000000000ULL) >> 40) |
+        (u64)((x & (u64)0xff00000000000000ULL) >> 56);
+}
 #else
 #define cpu_to_le16(x) (x)
 #define cpu_to_le32(x) (x)
+#define cpu_to_le64(x) (x)
 #define le16_to_cpu(x) (x)
 #define le32_to_cpu(x) (x)
+#define le64_to_cpu(x) (x)
 #endif
 
 #endif

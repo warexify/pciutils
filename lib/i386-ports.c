@@ -14,6 +14,8 @@
 
 #if defined(PCI_OS_LINUX)
 #include "i386-io-linux.h"
+#elif defined(PCI_OS_DARWIN)
+#include "i386-io-darwin.h"
 #elif defined(PCI_OS_GNU)
 #include "i386-io-hurd.h"
 #elif defined(PCI_OS_SUNOS)

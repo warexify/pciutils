@@ -146,6 +146,11 @@ darwin_read(struct pci_dev *d, int pos, byte *buf, int len)
     case 4:
       ((u32 *) buf)[0] = cpu_to_le32((u32) param.value);
       break;
+#ifdef __LP64__
+    case 8:
+      ((u64 *) buf)[0] = cpu_to_le64((u64) param.value);
+      break;
+#endif
     }
   return 1;
 }
@@ -182,6 +187,11 @@ darwin_write(struct pci_dev *d, int pos, byte *buf, int len)
     case 4:
       param.value = le32_to_cpu(((u32 *) buf)[0]);
       break;
+#ifdef __LP64__
+    case 8:
+      param.value = le64_to_cpu(((u64 *) buf)[0]);
+      break;
+#endif
     }
 
   size_t outSize = 0;
